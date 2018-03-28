@@ -1,0 +1,13 @@
+{
+    "authentication":{
+       "blockUnknown": true,
+       "class":"solr.BasicAuthPlugin",
+       "credentials":{"hyrax":"IstGhTCEcBodKL9yVmjol/LRKEB0gkyf43ULTojMCiw= fhrz9nBWNDjPAZZCPmjSbkVU8pp+bYixN4OKB3PA2Ms="}
+    },
+    "authorization":{
+       "class":"solr.RuleBasedAuthorizationPlugin",
+       "permissions":[{"name":"security-edit",
+          "role":"admin"}],
+       "user-role":{"hyrax":"admin"}
+    }
+}

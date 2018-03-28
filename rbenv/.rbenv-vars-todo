@@ -1,0 +1,66 @@
+# environment
+RAILS_ENV=production
+
+# hostname
+APPLICATION_HOST=APPLICATION_HOST_TODO
+
+# application key, used for solr collection, fedora base bath, database etc.
+APPLICATION_KEY=hyrax
+
+# rails tmp location
+RAILS_TMP=/var/tmp
+
+# log location (local config will append application key)
+LOGS_PATH=/var/log
+
+# pids and state (local config will append application key)
+PIDS_PATH=/var/run
+
+# Full path to derivatives
+DERIVATIVES_PATH=/data/hyrax/derivatives
+
+# Full path to uploads TRAILING SLASH IS NEEDED IN HYKU
+UPLOADS_PATH=/data/hyrax/uploads/
+
+# Full path to working directory
+WORKING_PATH=/data/hyrax/working
+
+# Full path to uploads cache directory TRAILING SLASH IS NEEDED IN HYKU
+CACHE_PATH=/data/hyrax/uploads/cache/
+
+# Full path to riiif cache directory
+NETWORK_FILES=/data/hyrax/network_files
+
+# Geonames
+GEONAMES_USERNAME=hykuleaf
+
+# Fedora
+FEDORA_URL=http://127.0.0.1:8080/fcrepo/rest
+
+# Solr
+SOLR_BASE=http://hyrax:solr@127.0.0.1:8983/solr
+
+# Database
+RDS_DB_NAME=hyrax
+RDS_USERNAME=hyrax
+RDS_PASSWORD=hyrax
+RDS_HOSTNAME=127.0.0.1
+RDS_PORT=5432
+
+# max threads, used for puma and sidekiq
+RAILS_MAX_THREADS=5
+
+# Keys
+SECRET_KEY_BASE=SECRET_KEY_BASE_TODO
+
+# Emails and users
+CONTACT_EMAIL=hykuleaf@gmail.com
+INVITE_EMAIL=hykuleaf@gmail.com
+# BATCH_USER=
+# AUDIT_USER=
+
+# Disable Redis Cluster
+DISABLE_REDIS_CLUSTER=true
+
+# Serve static files
+RAILS_SERVE_STATIC_FILES=true
