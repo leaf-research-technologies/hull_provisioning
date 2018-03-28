@@ -26,7 +26,9 @@ cp /tmp/config/logback.xml /data/fcrepo/config/
 
 chown -R tomcat:tomcat /data/fcrepo
 
+# this is more than likely already installed
 yes | yum install -y policycoreutils-python
+# we'll disable selinux so this isn't needed
 # semanage permissive -a tomcat_t
 
 systemctl start tomcat

@@ -31,13 +31,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.synced_folder "local", "/local", type: "virtualbox"
 
   config.vm.provision "file", source: "config/", destination: "/tmp/"
-  config.vm.provision "file", source: "config/", destination: "/tmp/"
-  # config.vm.provision "file", source: "../scripts/fits_configurator.sh", destination: "/tmp/fits_configurator.sh"
-  config.vm.provision "file", source: "../scripts/rbenv.sh", destination: "/tmp/rbenv.sh"
-  config.vm.provision "file", source: "../scripts/repo_builder.sh", destination: "/tmp/repo_builder.sh"
-  config.vm.provision "file", source: "../rbenv/", destination: "/tmp/"
-  # config.vm.provision "file", source: "config/fits.xml", destination: "/tmp/fits.xml"
+  config.vm.provision "file", source: "rbenv/", destination: "/tmp/"
   config.vm.provision "file", source: "fits/fits-1.2.0.zip", destination: "/tmp/fits-1.2.0.zip"
+  config.vm.provision "file", source: "standalone_scripts/rbenv.sh", destination: "/tmp/rbenv.sh"
+  config.vm.provision "file", source: "standalone_scripts/hyrax.sh", destination: "/tmp/hyrax.sh"
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo chmod +x /tmp/rbenv.sh
+    sudo chmod +x /tmp/hyrax.sh
+  SHELL
 
   config.vm.provision "shell", path: "provision_scripts/provision_prereq.sh", privileged: true
   config.vm.provision "shell", path: "provision_scripts/provision_apache.sh", privileged: true
@@ -48,20 +49,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "provision_scripts/puma.sh", privileged: true
   config.vm.provision "shell", path: "provision_scripts/sidekiq.sh", privileged: true
   config.vm.provision "shell", path: "provision_scripts/tmpfiles.sh", privileged: true
+  config.vm.provision "shell", path: "provision_scripts/repo_builder.sh", privileged: true
 
   config.vm.provision "shell", inline: <<-SHELL
-    sudo chown -R hyrax:hyrax /home/hyrax
-    sudo chmod +x /tmp/repo_builder.sh
-    sudo chmod +x /tmp/rbenv.sh
-    # sudo chmod +x /tmp/fits_configurator.sh
-
-    cd /tmp
-    # ./fits_configurator.sh
-    sudo -u hyrax ./rbenv.sh
-    sudo mkdir /var/lib/hyrax /data/hyrax/
-    sudo chown -R hyrax:hyrax /var/lib/hyrax
-    sudo chown -R hyrax:hyrax /data/hyrax/
-    sudo -u hyrax ./repo_builder.sh
+    # any extra config, especially anything with ENV
+    # eg. maybe add a standard Hyrax admin user
   SHELL
 
   # Application server
@@ -102,6 +94,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       override.vm.provision "shell", inline: <<-SHELL
           sudo sed -i 's/# ServerName localhost/ServerName ENV['AWS_SERVER_IP']/' /etc/httpd/sites-available/hyrax.conf
+          # TODO same for .rbenv-vars
           sudo service httpd restart
         SHELL
     end

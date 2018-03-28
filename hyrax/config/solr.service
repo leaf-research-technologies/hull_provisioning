@@ -5,7 +5,7 @@ After=syslog.target network.target remote-fs.target nss-lookup.target
 [Service]
 PIDFile=/var/lib/solr/bin/solr-8983.pid
 ExecStart=/var/lib/solr/bin/solr start
-User=hyrax
+User=solr
 ExecReload=/var/lib/solr/bin/solr restart
 ExecStop=/var/lib/solr/bin/solr stop
 # PrivateTmp=true

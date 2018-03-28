@@ -2,7 +2,7 @@
 RAILS_ENV=production
 
 # hostname
-APPLICATION_HOST=APPLICATION_HOST_TODO
+APPLICATION_HOST=localhost
 
 # application key, used for solr collection, fedora base bath, database etc.
 APPLICATION_KEY=hyrax
@@ -38,7 +38,7 @@ GEONAMES_USERNAME=hykuleaf
 FEDORA_URL=http://127.0.0.1:8080/fcrepo/rest
 
 # Solr
-SOLR_BASE=http://hyrax:solr@127.0.0.1:8983/solr
+SOLR_BASE=http://127.0.0.1:8983/solr
 
 # Database
 RDS_DB_NAME=hyrax
