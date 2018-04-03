@@ -4,8 +4,6 @@ SOLR="7.2.1"
 USER=solr
 COLLECTION=hyrax
 
-# Quick and dirty setup for Solr
-
 ##################
 # Add user/group #
 ##################
@@ -13,8 +11,10 @@ echo 'Adding the solr user'
 adduser $USER
 groupadd $USER
 usermod -a -G $USER $USER
-echo $USER:$USER | sudo chpasswd
 
+##############################
+# Install and configure solr #
+##############################
 yes | sudo yum install -y java-1.8.0-openjdk.x86_64 wget unzip lsof
 
 cd /tmp
@@ -33,16 +33,13 @@ cd /var/lib/solr
 bin/solr start -force
 # Create a Collection
 bin/solr create -c $COLLECTION -force
+bin/solr stop -force
 cd server/solr/$COLLECTION/conf
 mv solrconfig.xml solrconfig.xmlBAK
 wget https://raw.githubusercontent.com/samvera/active_fedora/master/lib/generators/active_fedora/config/solr/templates/solr/config/solrconfig.xml
 wget https://raw.githubusercontent.com/samvera/active_fedora/master/lib/generators/active_fedora/config/solr/templates/solr/config/schema.xml
 
 chown -R $USER:$USER /var/lib/solr
-
-# copy the security credentials into place
-# username and password is hyrax:solr (password generated using utils/SolrPasswordHash.jar)
-# cp /tmp/config/security.json /var/lib/solr/server/solr/security.json
 
 ####################################
 # Add sidekiq as a systemd service #
@@ -64,4 +61,7 @@ systemctl daemon-reload
 #####################
 systemctl enable solr.service
 
+##############
+# Start solr #
+##############
 service solr start

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 USER="hyrax"
+RAILS="5.1.4"
   
 if [ "$(whoami)" != $USER ]; then
   echo "Script must be run as user: $USER"
@@ -9,6 +10,13 @@ fi
 
 # Make sure we our rbenv setup loaded
 source ~/.bash_profile
+
+#################
+# Install rails #
+#################
+
+echo 'Installing rails '$RAILS
+gem install rails -v $RAILS
 
 cd /var/lib
 
@@ -27,8 +35,6 @@ sed -i "s/SECRET_KEY_BASE_TODO/$KEY/g" .rbenv-vars
 
 rbenv vars
 
-rake db:create
-
 echo 'Setting up ... '
 rake db:migrate
 rake hyrax:default_admin_set:create
@@ -37,9 +43,7 @@ rake hyrax:workflow:load
 rails generate hyrax:work SimpleWork
 
 # add the qa index as per https://github.com/samvera/questioning_authority
-echo 'Add the index to the database - the password here is the'
-echo 'hyrax DATABASE PASSWORD:'
-bash -c "PGPASSWORD=hyrax psql -U hyrax -h 127.0.0.1 hyrax -c \"CREATE INDEX index_qa_local_authority_entries_on_lower_label ON qa_local_authority_entries (local_authority_id, lower(label));\""
+bash -c "PGPASSWORD=$USER psql -U $USER -h 127.0.0.1 $USER -c \"CREATE INDEX index_qa_local_authority_entries_on_lower_label ON qa_local_authority_entries (local_authority_id, lower(label));\""
 
 # precompile assets
 rake assets:precompile

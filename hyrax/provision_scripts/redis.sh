@@ -16,11 +16,12 @@ else
   sudo rpm -Uvh epel-release-latest-7*.rpm
 fi
 
-# Install Redis
-# TODO production config
 yes | sudo yum install -y redis
 
-# Start Redis
+##################################
+# Start Redis and enable at boot #
+##################################
+
 # See http://sharadchhetri.com/2014/10/04/install-redis-server-centos-7-rhel-7/
 # bind redis to 0.0.0.0 to allow external monitoring
 # sed -i 's/bind 127.0.0.1/bind 0.0.0.0/g' /etc/redis.conf

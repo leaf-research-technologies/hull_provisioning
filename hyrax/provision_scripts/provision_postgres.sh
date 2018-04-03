@@ -21,9 +21,3 @@ sed -i 's/ident/md5/' /var/lib/pgsql/9.6/data/pg_hba.conf
 
 systemctl start postgresql-9.6.service
 systemctl enable postgresql-9.6.service
-
-#############################################################
-# Setup the db user, create the db and grant all privileges #
-#############################################################
-sudo -u postgres bash -c "psql -c \"CREATE USER hyrax WITH PASSWORD 'hyrax';\""
-sudo -u postgres bash -c "psql -c \"ALTER USER hyrax SUPERUSER;\""

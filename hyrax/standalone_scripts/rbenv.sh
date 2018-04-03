@@ -1,7 +1,6 @@
 #!/bin/bash
 
 RUBY="2.4.1"
-RAILS="5.1.4"
 USER="hyrax"
 
 if [ "$(whoami)" != $USER ]; then
@@ -43,14 +42,8 @@ source ~/.bash_profile
 ################
 
 echo 'Installing ruby '$RUBY
+# If Ruby is already installed, don't reinstall
 echo 'N' | rbenv install $RUBY
 rbenv global $RUBY
-
-#################
-# Install rails #
-#################
-
-echo 'Installing rails '$RAILS
-gem install rails -v $RAILS
 
 exit 0

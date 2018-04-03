@@ -54,6 +54,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", inline: <<-SHELL
     # any extra config, especially anything with ENV
     # eg. maybe add a standard Hyrax admin user
+    echo 'All done!'
   SHELL
 
   # Application server

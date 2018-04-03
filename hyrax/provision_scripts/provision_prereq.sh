@@ -27,9 +27,7 @@ fi
 # Install LibreOffice and ImageMagick #
 #######################################
 echo 'Installing LibreOffice, ImageMagick and Redis'
-# LibreOffice
 yes | yum install –y libreoffice
-# Install ImageMagick
 yes | yum install –y ImageMagick
 
 ##################################
@@ -46,14 +44,14 @@ yes | yum install -y libmediainfo libzen mediainfo
 echo 'Installing tesseract'
 yes | yum install -y tesseract
 
-##########################
-# Install Fits into /opt #
-##########################
+################
+# Install Fits #
+################
 # See https://github.com/projecthydra-labs/hyrax#characterization
 cd /usr/local
 if [ ! -d fits ]
 then
-  echo 'Downloading Fits '$FITS
+  # echo 'Downloading Fits '$FITS
   # because of problems with the download, we use a local copy of fits
   # wget http://projects.iq.harvard.edu/files/fits/files/fits-$FITS.zip
   mv /tmp/fits-$FITS.zip /usr/local/
@@ -75,6 +73,3 @@ fi
 echo 'Installing nodejs'
 rpm -ivh https://kojipkgs.fedoraproject.org//packages/http-parser/2.7.1/3.el7/x86_64/http-parser-2.7.1-3.el7.x86_64.rpm
 yes | yum install -y nodejs
-
-
-
