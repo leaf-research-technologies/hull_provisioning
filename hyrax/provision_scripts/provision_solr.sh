@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOLR="7.2.1"
+SOLR="7.3.0"
 USER=solr
 COLLECTION=hyrax
 
