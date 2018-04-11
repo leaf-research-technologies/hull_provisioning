@@ -19,8 +19,6 @@ Solr: http://localhost:8983/solr
 
 ### AWS
 
-TODO
-
 Install the vagrant env plugin
 
 ```
@@ -45,11 +43,7 @@ vagrant up --provider aws
 ```
 
 #### Additional Step
-We need to set the IP of the server in the apache config and .rbenv-vars Manually associate with the elastic ip during build from the aws console. This is done using the AWS_IP environment variable above. 
-
-To set this in advance, you'll need to create an Elastic IP in the AWS consule and associate this IP with the EC2 instance during boot.
-
-Alternatively, set the AWS_IP to localhost, and update the two files manually with the IP of the instance.
+We need to set the IP of the server in the apache config and .rbenv-vars This is done using an elastic IP and the AWS_IP environment variable above - the elastic IP needs to be created in AWS.
 
 ### Troubleshooting
 
