@@ -28,6 +28,8 @@ cp /tmp/rbenv/.rbenv-vars-todo .rbenv-vars
 
 gem install pg -v '0.21.0' -- --with-pg-config=/usr/pgsql-9.6/bin/pg_config
 
+echo "gem 'dog_biscuits', :git => 'git://github.com/geekscruff/dog_biscuits.git'" >> /var/lib/hyrax/Gemfile
+
 bundle install --without development test
 
 KEY=$(rake secret)
@@ -39,8 +41,11 @@ echo 'Setting up ... '
 rake db:migrate
 rake hyrax:default_admin_set:create
 rake hyrax:workflow:load
-# Create an example work called SimpleWork
-rails generate hyrax:work SimpleWork
+
+# Generate works
+rails generate dog_biscuits:install
+cp /tmp/config/dog_biscuits.rb /var/lib/hyrax/config/initializers/dog_biscuits.rb
+rails generate dog_biscuits:generate_all
 
 # add the qa index as per https://github.com/samvera/questioning_authority
 bash -c "PGPASSWORD=$USER psql -U $USER -h 127.0.0.1 $USER -c \"CREATE INDEX index_qa_local_authority_entries_on_lower_label ON qa_local_authority_entries (local_authority_id, lower(label));\""
