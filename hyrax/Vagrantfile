@@ -86,16 +86,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       aws.keypair_name = keypair
       aws.ami = "ami-0d063c6b" # centos7 https://wiki.centos.org/Cloud/AWS
       aws.region = "eu-west-1" # Ireland
-      # aws.instance_type = "m4.xlarge" # 16GB 4CPU
-      aws.instance_type = "t2.large" # 8GB 2CPU
-      # aws.instance_type = "t2.medium" # 4GB 2CPU
+	  # Instance type, eg.
+	  #   "t2.medium" # 4GB 2CPU
+	  #   "t2.large" # 8GB 2CPU
+	  #   "m4.xlarge" # 16GB 4CPU
+      aws.instance_type = ENV['AWS_INSTANCE']
       aws.subnet_id = ENV['AWS_SUBNET']
       aws.security_groups = security_groups('AWS_SECURITY_GROUPS')
       aws.elastic_ip = ENV['AWS_IP']
       override.ssh.username = "centos"
       override.ssh.private_key_path = "#{keypair_filename}"
       aws.tags = {
-        'Name' => 'hull',
+        'Name' => ENV['NAME'],
       }
 
       config.vm.provision "shell", inline: <<-SHELL
