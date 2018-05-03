@@ -61,10 +61,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   SHELL
 
   # Application server
-  config.vm.define :hull do |hull|
-    hull.vm.hostname = "hull"
+  # TODO CHANGE THIS
+  config.vm.define :hyrax do |hyrax|
+    hyrax.vm.hostname = "hyrax"
 
-    hull.vm.provider :virtualbox do |vb, override|
+    hyrax.vm.provider :virtualbox do |vb, override|
       vb.memory = "4084"
       vb.cpus = 2
 
@@ -75,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     end
 
-    hull.vm.provider :aws do |aws, override|
+    hyrax.vm.provider :aws do |aws, override|
       keypair = "#{ENV['KEYPAIR_NAME']}"
       keypair_filename = "#{ENV['KEYPAIR_FILE']}"
       override.vm.box = "aws_dummy"
@@ -84,12 +85,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       aws.access_key_id = ENV['AWS_ACCESS_KEY']
       aws.secret_access_key = ENV['AWS_SECRET_KEY']
       aws.keypair_name = keypair
-      aws.ami = "ami-0d063c6b" # centos7 https://wiki.centos.org/Cloud/AWS
-      aws.region = "eu-west-1" # Ireland
-	  # Instance type, eg.
-	  #   "t2.medium" # 4GB 2CPU
-	  #   "t2.large" # 8GB 2CPU
-	  #   "m4.xlarge" # 16GB 4CPU
+      aws.ami = ENV['AWS_AMI']
+      aws.region = ENV['AWS_REGION']
+	    # Instance type, eg.
+	    #   "t2.medium" # 4GB 2CPU
+	    #   "t2.large" # 8GB 2CPU
+	    #   "m4.xlarge" # 16GB 4CPU
       aws.instance_type = ENV['AWS_INSTANCE']
       aws.subnet_id = ENV['AWS_SUBNET']
       aws.security_groups = security_groups('AWS_SECURITY_GROUPS')
@@ -104,7 +105,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           IP='#{ENV['AWS_IP']}'
           echo 'Setting the IP'
           sudo sed -i "s/ServerName localhost/ServerName $IP/g" /etc/httpd/conf.d/hyrax.conf
-          sudo sed -i "s/https:\/\/localhost/https:\/\/$IP/g" /etc/httpd/conf.d/hyrax.conf
+          sudo sed -i "s/https:\/\/localhost/$IP/g" /etc/httpd/conf.d/hyrax.conf
           sudo sed -i "s/APPLICATION_HOST=localhost/APPLICATION_HOST=$IP/g" /var/lib/hyrax/.rbenv-vars
           sudo service httpd restart
           sudo service puma restart
