@@ -24,6 +24,8 @@ git clone https://github.com/leaf-research-technologies/hyrax_leaf.git hyrax
 
 cd /var/lib/hyrax
 
+git checkout dataset_flat
+
 cp /tmp/rbenv/.rbenv-vars-todo .rbenv-vars
 
 gem install pg -v '0.21.0' -- --with-pg-config=/usr/pgsql-9.6/bin/pg_config
