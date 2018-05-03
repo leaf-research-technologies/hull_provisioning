@@ -87,8 +87,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       aws.ami = "ami-0d063c6b" # centos7 https://wiki.centos.org/Cloud/AWS
       aws.region = "eu-west-1" # Ireland
      # Instance type, eg.
-	    #   "t2.medium" # 4GB 2CPU
-	    #   "t2.large" # 8GB 2CPU
+	   #   "t2.medium" # 4GB 2CPU
+	   #   "t2.large" # 8GB 2CPU
 	   #   "m4.xlarge" # 16GB 4CPU
       aws.instance_type = ENV['AWS_INSTANCE']
       aws.subnet_id = ENV['AWS_SUBNET']
