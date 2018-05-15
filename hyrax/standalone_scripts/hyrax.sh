@@ -2,6 +2,7 @@
 
 USER="hyrax"
 RAILS="5.1.4"
+BRANCH="master"
   
 if [ "$(whoami)" != $USER ]; then
   echo "Script must be run as user: $USER"
@@ -24,7 +25,7 @@ git clone https://github.com/leaf-research-technologies/hyrax_leaf.git hyrax
 
 cd /var/lib/hyrax
 
-git checkout dataset_flat
+git checkout $BRANCH
 
 cp /tmp/rbenv/.rbenv-vars-todo .rbenv-vars
 

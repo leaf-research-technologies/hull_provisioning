@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SOLR="7.3.0"
+SOLR="7.2.1"
 USER=solr
 COLLECTION=hyrax
 
@@ -20,7 +20,7 @@ yes | sudo yum install -y java-1.8.0-openjdk.x86_64 wget unzip lsof
 cd /tmp
 if [ ! -f solr-$SOLR.tgz ]
 then
-    wget http://apache.mirror.anlx.net/lucene/solr/$SOLR/solr-$SOLR.tgz
+    wget http://archive.apache.org/dist/lucene/solr/$SOLR/solr-$SOLR.tgz
     tar -xvf solr-$SOLR.tgz
 else
     echo 'solr is already downloaded'
