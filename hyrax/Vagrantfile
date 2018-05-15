@@ -35,6 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "file", source: "config/", destination: "/tmp/"
   config.vm.provision "file", source: "rbenv/", destination: "/tmp/"
+  config.vm.provision "file", source: "extras/", destination: "/tmp/"
   config.vm.provision "file", source: "fits/fits-1.2.0.zip", destination: "/tmp/fits-1.2.0.zip"
   config.vm.provision "file", source: "standalone_scripts/rbenv.sh", destination: "/tmp/rbenv.sh"
   config.vm.provision "file", source: "standalone_scripts/hyrax.sh", destination: "/tmp/hyrax.sh"
@@ -60,8 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     echo 'All done!'
   SHELL
 
-  # Application server
-  # TODO CHANGE THIS
+  # Application servercd ..
   config.vm.define :hyrax do |hyrax|
     hyrax.vm.hostname = "hyrax"
 
@@ -105,11 +105,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           IP='#{ENV['AWS_IP']}'
           echo 'Setting the IP'
           sudo sed -i "s/ServerName localhost/ServerName $IP/g" /etc/httpd/conf.d/hyrax.conf
-          sudo sed -i "s/https:\/\/localhost/$IP/g" /etc/httpd/conf.d/hyrax.conf
           sudo sed -i "s/APPLICATION_HOST=localhost/APPLICATION_HOST=$IP/g" /var/lib/hyrax/.rbenv-vars
+          
+          # If running with the ssl config, this line will replace localhost in line 61 of the included ssl config
+          sudo sed -i "61s/localhost/$IP/g" /etc/httpd/conf.d/hyrax.conf
           sudo service httpd restart
           sudo service puma restart
           sudo service sidekiq restart
+
           echo 'All done!'
         SHELL
     end
