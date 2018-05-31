@@ -1,0 +1,36 @@
+# environment
+RAILS_ENV=production
+
+# hostname
+APPLICATION_HOST=localhost
+
+# application key, used for solr collection, fedora base bath, database etc.
+APPLICATION_KEY=hullsync
+
+# rails tmp location
+RAILS_TMP=/var/tmp
+
+# log location (local config will append application key)
+LOGS_PATH=/var/log
+
+# pids and state (local config will append application key)
+PIDS_PATH=/var/run
+
+# Database
+RDS_DB_NAME=hullsync
+RDS_USERNAME=hullsync
+RDS_PASSWORD=hullsync
+RDS_HOSTNAME=127.0.0.1
+RDS_PORT=5432
+
+# max threads, used for puma and sidekiq
+RAILS_MAX_THREADS=5
+
+# Keys
+SECRET_KEY_BASE=SECRET_KEY_BASE_TODO
+
+# Disable Redis Cluster
+DISABLE_REDIS_CLUSTER=true
+
+# Serve static files
+RAILS_SERVE_STATIC_FILES=true

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+############################################
+# This script will install and configure:  #
+# - hullsync                                  #
+############################################
+
+USER=hullsync
+APP=hullsync
+
+##################
+# Add user/group #
+##################
+echo 'Adding the hullsync user'
+adduser $USER
+groupadd $USER
+usermod -a -G $USER $USER
+
+########################################
+# Create direcotories, change ownerhip #
+########################################
+mkdir /var/lib/$APP
+mkdir /var/log/$APP
+mkdir /var/run/$APP
+mkdir -p /data/$APP
+
+chown $USER:$USER /var/lib/$APP
+chown $USER:$USER /var/log/$APP
+chown $USER:$USER /var/run/$APP
+chown $USER:$USER /data/$APP
+
+#############################################################
+# Setup the db user, create the db and grant all privileges #
+#############################################################
+sudo -u postgres bash -c "psql -c \"CREATE USER $USER WITH PASSWORD '$USER';\""
+sudo -u postgres bash -c "psql -c \"CREATE DATABASE $APP;\""
+sudo -u postgres bash -c "psql -c \"GRANT ALL ON DATABASE $APP TO $USER;\""
+
+##########################
+# Run standalone scripts #
+##########################
+cd /tmp
+sudo -u $USER bash -c "./rbenv.sh"
+sudo -u $USER bash -c "./hullsync.sh"
+
+##########################
+# Start/Restart services #
+##########################
+systemctl restart sidekiq
+systemctl restart puma
+systemctl restart httpd

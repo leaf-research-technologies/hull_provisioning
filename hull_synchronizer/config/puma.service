@@ -1,0 +1,28 @@
+# see https://github.com/puma/puma/blob/master/docs/systemd.md
+[Unit]
+Description=Puma HTTP Server Forking
+After=network.target
+
+[Service]
+# Puma HTTP Server
+Type=forking
+
+# Preferably configure a non-privileged user
+User=hullsync
+Group=hullsync
+UMask=0002
+
+PIDFile=/var/run/hullsync/puma.pid
+
+WorkingDirectory=/var/lib/hullsync
+
+# The command to start Puma
+ExecStart=/bin/bash -lc 'bundle exec pumactl start'
+
+# The command to stop Puma
+ExecStop=/bin/bash -lc 'bundle exec pumactl stop'
+
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
