@@ -16,6 +16,15 @@ adduser $USER
 groupadd $USER
 usermod -a -G $USER $USER
 
+#############################
+# Add ssh keys (if present) #
+#############################
+if [ -d /tmp/extras/ssh ]; then
+    cp /tmp/extras/ssh/* /home/hyrax/.ssh/
+    chmod 600 /home/hyrax/.ssh/id_rsa
+    chmod 700 /home/hyrax/.ssh/id_rsa.pub
+fi
+
 ########################################
 # Create direcotories, change ownerhip #
 ########################################

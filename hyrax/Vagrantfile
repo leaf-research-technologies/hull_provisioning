@@ -101,7 +101,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         'Name' => ENV['NAME'],
       }
 
-      config.vm.provision "shell", inline: <<-SHELL
+      override.vm.provision "shell", inline: <<-SHELL
           IP='#{ENV['AWS_IP']}'
           echo 'Setting the IP'
           sudo sed -i "s/ServerName localhost/ServerName $IP/g" /etc/httpd/conf.d/hyrax.conf
