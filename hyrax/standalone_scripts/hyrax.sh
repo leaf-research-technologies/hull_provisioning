@@ -3,9 +3,12 @@
 USER="hyrax"
 RAILS="5.1.4"
 BRANCH="master"
-GEM="git@bitbucket.org:ulcc-art/hyrax_skel.git"
-GEM_KEY="hyrax_skel"
+# If there's a local gem to add into vendor/ add the full gh link as GEM
+# and the gem name as GEM_KEY
+GEM=""
+GEM_KEY=""
 # Create a sample model (just one)
+# Skip if not set
 MODEL=""
   
 if [ "$(whoami)" != $USER ]; then
