@@ -7,6 +7,12 @@ APPLICATION_HOST=localhost
 # application key, used for solr collection, fedora base bath, database etc.
 APPLICATION_KEY=hyrax
 
+# Application Name (for Page Header etc.)
+APPLICATION_NAME=
+
+# Location (in assets path) of banner image
+BANNER=
+
 # rails tmp location
 RAILS_TMP=/var/tmp
 

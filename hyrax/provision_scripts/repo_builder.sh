@@ -20,9 +20,11 @@ usermod -a -G $USER $USER
 # Add ssh keys (if present) #
 #############################
 if [ -d /tmp/extras/ssh ]; then
-    cp /tmp/extras/ssh/* /home/hyrax/.ssh/
-    chmod 600 /home/hyrax/.ssh/id_rsa
-    chmod 700 /home/hyrax/.ssh/id_rsa.pub
+    sudo cp /tmp/extras/ssh/* /home/hyrax/.ssh/
+	sudo chown hyrax:hyrax /home/hyrax/.ssh/id_rsa
+	sudo chown hyrax:hyrax /home/hyrax/.ssh/id_rsa.pub
+    sudo chmod 600 /home/hyrax/.ssh/id_rsa
+    sudo chmod 700 /home/hyrax/.ssh/id_rsa.pub
 fi
 
 ########################################

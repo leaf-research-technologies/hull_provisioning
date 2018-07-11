@@ -60,6 +60,7 @@ rake db:migrate
 rake hyrax:default_admin_set:create
 rake hyrax:workflow:load
 rake hyrax:default_collection_types:create
+rake hyrax:controlled_vocabularies:language
 if [ ! -z "$MODEL" ]; then
   rails generate hyrax:work $MODEL
 fi
