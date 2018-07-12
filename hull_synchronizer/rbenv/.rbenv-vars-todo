@@ -34,3 +34,12 @@ DISABLE_REDIS_CLUSTER=true
 
 # Serve static files
 RAILS_SERVE_STATIC_FILES=true
+
+# Fill out the required archiveamtica variables
+AM_URL=
+AM_USER=
+AM_KEY=
+AM_TS=
+SS_URL=
+SS_USER=
+SS_KEY=
